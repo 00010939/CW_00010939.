@@ -6,8 +6,10 @@ const studentController = require('../controllers/studentController');
 router.get('/', studentController.view);
 router.post('/', studentController.find);
 router.get('/:id', studentController.delete);
+
 router.get('/addstudent', studentController.form);
 router.post('/addstudent', studentController.create);
+
 router.get('/editstudent/:id', studentController.edit);
 router.post('/editstudent/:id', studentController.update);
 router.get('/viewstudent/:id', studentController.viewall);

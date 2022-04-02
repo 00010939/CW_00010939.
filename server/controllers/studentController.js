@@ -48,7 +48,7 @@ exports.find = (req, res) => {
             connection.release();
 
             if (!err) {
-                res.render('home', { rows });
+                res.render('add-student', { rows });
             } else {
                 console.log(err);
             }
