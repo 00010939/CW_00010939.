@@ -38,8 +38,6 @@ exports.find = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
-
-
         let searchTerm = req.body.search;
 
         // Student the connection
