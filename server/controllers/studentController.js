@@ -11,7 +11,6 @@ const pool = mysql.createPool({
 
 // View Students
 exports.view = (req, res) => {
-
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID  ' + connection.threadId);
@@ -164,3 +163,68 @@ exports.update = (req, res) => {
 }
 
 
+
+
+
+//Delete Student 
+exports.delete = (req, res) => {
+    // pool.getConnection((err, connection) => {
+    //     if (err) throw err; // not connected!
+    //     console.log('Connected as ID  ' + connection.threadId);
+
+    //     // Student the connection
+    //     connection.query('DELETE FROM user WHERE id =?', [req.params.id], (err, rows) => {
+    //         //Connection is done, release it
+    //         connection.release();
+
+    //         if (!err) {
+    //            res.redirect('/');
+    //         } else {
+    //             console.log(err);
+    //         }
+
+    //         console.log('The data from user table: \n', rows);
+    //     });
+    // });
+
+
+
+    pool.getConnection((err, connection) => {
+        if (err) throw err; 
+            connection.query('UPDATE user SET status = ? WHERE id =?', ['removed', req.params.id], (err, rows) => {
+            connection.release();
+            if (!err) {
+               res.redirect('/');
+            } else {
+                console.log(err);
+            }
+
+            console.log('The data from user table: \n', rows);
+        });
+    });
+}
+
+
+
+
+// View Students
+exports.viewall = (req, res) => {
+    pool.getConnection((err, connection) => {
+        if (err) throw err; // not connected!
+        console.log('Connected as ID  ' + connection.threadId);
+
+        // Student the connection
+        connection.query('SELECT * FROM user WHERE id =?', [req.params.id], (err, rows) => {
+            //Connection is done, release it
+            connection.release();
+
+            if (!err) {
+                res.render('view-student', { rows });
+            } else {
+                console.log(err);
+            }
+
+            console.log('The data from user table: \n', rows);
+        });
+    });
+}
