@@ -38,6 +38,8 @@ exports.find = (req, res) => {
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
+
+
         let searchTerm = req.body.search;
 
         // Student the connection
@@ -65,11 +67,15 @@ exports.form = (req, res) => {
 //Add new Student 
 exports.create = (req, res) => {
     const { first_name, last_name, email, phone, comments } = req.body;
+
+
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
 
+
         let searchTerm = req.body.search;
+
         // Student the connection
         connection.query('INSERT INTO user SET first_name = ?, last_name = ?, email = ?, phone = ?, comments = ?',[first_name, last_name, email, phone, comments], (err, rows) => {
             //Connection is done, release it
@@ -180,6 +186,9 @@ exports.delete = (req, res) => {
     //         console.log('The data from user table: \n', rows);
     //     });
     // });
+
+
+
     pool.getConnection((err, connection) => {
         if (err) throw err; 
             connection.query('UPDATE user SET status = ? WHERE id =?', ['removed', req.params.id], (err, rows) => {
