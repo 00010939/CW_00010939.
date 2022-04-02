@@ -21,7 +21,8 @@ exports.view = (req, res) => {
             connection.release();
 
             if (!err) {
-                res.render('home', { rows });
+                let removedStudent = req.query.removed;
+                res.render('home', { rows, removedStudent });
             } else {
                 console.log(err);
             }
@@ -32,7 +33,7 @@ exports.view = (req, res) => {
 }
 
 
-//At first the code below was to find students, I removed search now it is for adding the student
+//To find students
 exports.find = (req, res) => {
 
     pool.getConnection((err, connection) => {
@@ -48,7 +49,7 @@ exports.find = (req, res) => {
             connection.release();
 
             if (!err) {
-                res.render('add-student', { rows });
+                res.render('home', { rows });
             } else {
                 console.log(err);
             }
@@ -64,7 +65,7 @@ exports.form = (req, res) => {
 }
 
 
-//Add new Student, for some reason I can't add student so removed search to add student
+//Add new Student
 exports.create = (req, res) => {
     const { first_name, last_name, email, phone, comments } = req.body;
 
@@ -194,7 +195,8 @@ exports.delete = (req, res) => {
             connection.query('UPDATE user SET status = ? WHERE id =?', ['removed', req.params.id], (err, rows) => {
             connection.release();
             if (!err) {
-               res.redirect('/');
+                let removeStudent = encodeURIComponent('Student succesfully removed.');
+               res.redirect('/?removed=' + removeStudent);
             } else {
                 console.log(err);
             }
