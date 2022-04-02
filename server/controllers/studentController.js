@@ -32,7 +32,7 @@ exports.view = (req, res) => {
 }
 
 
-//Find Student by search
+//At first the code below was to find students, I removed search now it is for adding the student
 exports.find = (req, res) => {
 
     pool.getConnection((err, connection) => {
@@ -64,7 +64,7 @@ exports.form = (req, res) => {
 }
 
 
-//Add new Student 
+//Add new Student, for some reason I can't add student so removed search to add student
 exports.create = (req, res) => {
     const { first_name, last_name, email, phone, comments } = req.body;
 
